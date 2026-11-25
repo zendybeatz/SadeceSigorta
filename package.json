@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "node scripts/build.mjs",
+    "uret": "node scripts/build.mjs",
     "logos": "node scripts/fetch-logos.mjs && node scripts/build.mjs",
     "start": "node scripts/serve.mjs"
   }
