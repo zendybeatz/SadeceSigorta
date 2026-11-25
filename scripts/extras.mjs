@@ -342,3 +342,45 @@ export const extra = {
     more: { title: 'More insurance types', lead: 'Cannot find what you need? Message us and we will look for a suitable policy.' },
   },
 };
+
+// --- Şubelik başvurusu sayfası
+export const branch = {
+  tr: {
+    slug: 'subelik-basvurusu', nav: 'Şubelik',
+    title: 'Şubelik Başvurusu | SadeceSigorta Şube Olun', desc: 'SadeceSigorta şubesi olmak için başvurun. Sigortacılık alanında kendi işinizi kurmak isteyenler için şubelik başvuru formu.',
+    eyebrow: 'Şubelik', h1: 'SadeceSigorta şubesi olun, kendi işinizi kurun.', lead: 'Sigorta sektöründe kendi şubenizle çalışmak istiyorsanız başvuru formunu doldurun. Başvurunuzu inceleyip sizinle iletişime geçelim.',
+    whyTitle: 'Neden SadeceSigorta şubesi?',
+    why: [
+      { t: 'Hazır marka ve site', d: 'Tanınan bir markayla, hazır web sitesi ve teklif altyapısıyla başlarsınız.' },
+      { t: '24 şirketle teklif', d: 'Müşterilerinize tek başvuruyla 24 sigorta şirketinden karşılaştırmalı teklif sunarsınız.' },
+      { t: 'Destek', d: 'Süreç boyunca merkez ekipten destek alırsınız.' },
+    ],
+    stepsTitle: 'Başvuru nasıl ilerler?',
+    steps: ['Formu doldurun', 'Başvurunuzu inceleyip sizi arayalım', 'Şartları ve süreci birlikte netleştirelim'],
+    note: 'Şube koşulları (ücret, bölge, evrak) görüşmede netleştirilir; bu formda ödeme veya taahhüt istenmez.',
+    formTitle: 'Şubelik başvuru formu',
+    f: { ad: 'Ad soyad', tel: 'Telefon', il: 'İl / ilçe', durum: 'Mevcut durumunuz', durumO: ['Sigorta acentesiyim', 'Sigorta sektöründe çalışıyorum', 'Sektörde değilim, yeni başlayacağım'], ofis: 'Ofisiniz var mı?', ofisO: ['Evet', 'Hayır', 'Açmayı planlıyorum'], mail: 'E-posta (isteğe bağlı)', not: 'Eklemek istedikleriniz' },
+    kvkk: 'Bilgilerimin başvurumun değerlendirilmesi için kullanılmasını kabul ediyorum.', btn: 'Başvuruyu gönder', errReq: 'Bu alan gerekli', errPhone: 'Geçerli bir telefon numarası girin', errKvkk: 'Onay gerekli', ok: 'Teşekkürler! WhatsApp açılıyor; mesajı göndermeniz yeterli.',
+    msg: 'Merhaba, SadeceSigorta şubelik başvurusu yapmak istiyorum.', m: { ad: 'Ad soyad', tel: 'Telefon', il: 'İl / ilçe', durum: 'Durum', ofis: 'Ofis', mail: 'E-posta', not: 'Not' },
+    cta: 'Şubelik başvurusu', ctaLead: 'Kendi şubenizi açmak için başvurun.',
+  },
+  en: {
+    slug: 'branch-application', nav: 'Become a branch',
+    title: 'Branch Application | Become a SadeceSigorta Branch', desc: 'Apply to become a SadeceSigorta branch. Application form for people who want to start their own insurance business.',
+    eyebrow: 'Branch', h1: 'Become a SadeceSigorta branch and build your own business.', lead: 'If you want to run your own branch in insurance, fill in the application form. We will review it and get in touch.',
+    whyTitle: 'Why a SadeceSigorta branch?',
+    why: [
+      { t: 'Ready brand and website', d: 'Start with a known brand, a ready website and a quote workflow.' },
+      { t: 'Quotes from 24 insurers', d: 'Offer customers comparative quotes from 24 insurers in one request.' },
+      { t: 'Support', d: 'You get support from the head office team throughout.' },
+    ],
+    stepsTitle: 'How does the application work?',
+    steps: ['Fill in the form', 'We review it and call you', 'We clarify terms and process together'],
+    note: 'Branch terms (fees, region, documents) are clarified in conversation; no payment or commitment is requested in this form.',
+    formTitle: 'Branch application form',
+    f: { ad: 'Full name', tel: 'Phone', il: 'City / district', durum: 'Your current situation', durumO: ['I run an insurance agency', 'I work in the insurance sector', 'New to the sector'], ofis: 'Do you have an office?', ofisO: ['Yes', 'No', 'Planning to open one'], mail: 'Email (optional)', not: 'Anything to add' },
+    kvkk: 'I agree to my details being used to evaluate my application.', btn: 'Send application', errReq: 'This field is required', errPhone: 'Enter a valid phone number', errKvkk: 'Consent required', ok: 'Thanks! WhatsApp is opening; just send the message.',
+    msg: 'Hello, I would like to apply to become a SadeceSigorta branch.', m: { ad: 'Full name', tel: 'Phone', il: 'City / district', durum: 'Situation', ofis: 'Office', mail: 'Email', not: 'Note' },
+    cta: 'Branch application', ctaLead: 'Apply to open your own branch.',
+  },
+};

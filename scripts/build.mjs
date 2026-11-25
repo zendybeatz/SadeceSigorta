@@ -132,6 +132,7 @@ function header(lang, key, base) {
     <nav class="nav" id="nav" aria-label="${E(cfg.brand)}">
       ${['dask', 'isyeri', 'arac', 'kasko'].map((k) => link(k, t.nav[k])).join('')}
       <div class="dd"><button class="dd__b" type="button" aria-expanded="false" aria-haspopup="true">${E(t.nav.more)}<svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true"><path d="m2 4 4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button><div class="dd__m">${extraKeys.map((k) => link(k, t.products[k].short)).join('')}</div></div>
+      ${link('sube', t.nav.sube)}
       <a class="nav__cta btn btn--sm" href="${base}${pagePath(lang, 'teklif')}">${E(t.nav.teklif)}</a>
     </nav>
     <div class="bar__end">${other}<button class="burger" aria-expanded="false" aria-controls="nav" aria-label="${E(t.nav.menu)}">${icon('menu')}</button></div>
@@ -144,7 +145,7 @@ function footer(lang, base) {
   return `<footer class="site-footer">
   <div class="wrap foot">
     <div class="foot__brand"><img src="${base}assets/logo-lockup.png" alt="${E(cfg.brand)}" width="150" height="67" loading="lazy"><p>${E(t.footer.about)}</p></div>
-    <div><h2>${E(t.footer.products)}</h2><ul>${ALL.map((p) => `<li><a href="${base}${pagePath(lang, p)}">${E(t.products[p].short)}</a></li>`).join('')}<li><a href="${base}${pagePath(lang, 'teklif')}">${E(t.nav.teklif)}</a></li></ul></div>
+    <div><h2>${E(t.footer.products)}</h2><ul>${ALL.map((p) => `<li><a href="${base}${pagePath(lang, p)}">${E(t.products[p].short)}</a></li>`).join('')}<li><a href="${base}${pagePath(lang, 'sube')}">${E(t.branch.cta)}</a></li><li><a href="${base}${pagePath(lang, 'teklif')}">${E(t.nav.teklif)}</a></li></ul></div>
     <div><h2>${E(t.footer.contact)}</h2><ul>
       <li><a href="tel:${cfg.phoneTel}">${E(cfg.phoneDisplay)}</a></li>
       <li><a href="https://wa.me/${cfg.whatsapp}" rel="noopener" target="_blank">WhatsApp: ${E(cfg.whatsappDisplay || '')}</a></li>
@@ -367,11 +368,55 @@ ${footer(lang, base)}
 ` + scripts(base, `\n<script type="module" src="${base}js/quote.js"></script>`);
 }
 
+function renderBranch(lang) {
+  const t = content[lang]; const b = t.branch; const path = pagePath(lang, 'sube'); const base = '../'.repeat(depthOf(path)); const homeP = pagePath(lang, 'home');
+  const ld = [graph([agencyLd(lang), siteLd(lang), { '@type': 'WebPage', '@id': abs(path) + '#webpage', url: abs(path), name: b.title, description: b.desc, isPartOf: { '@id': abs('#website') }, breadcrumb: { '@id': abs(path) + '#breadcrumb' }, inLanguage: t.htmlLang }, { ...crumbs(lang, [[t.ld.breadcrumbHome, homeP], [b.nav, path]]), '@id': abs(path) + '#breadcrumb' }])];
+  const data = { wa: cfg.whatsapp, b: { msg: b.msg, m: b.m, ok: b.ok } };
+  const opts = (a) => a.map((o) => `<option>${E(o)}</option>`).join('');
+  return head({ lang, key: 'sube', title: b.title, desc: b.desc, path, ld, base }) + `
+<body class="page-quote page-branch">
+${header(lang, 'sube', base)}
+<main id="main">
+<section class="hero hero--quote"><div class="hero__bg" aria-hidden="true"></div><div class="wrap hero__in">
+  <nav class="crumbs" aria-label="breadcrumb"><a href="${base}${homeP}">${E(t.ld.breadcrumbHome)}</a><span>/</span><span aria-current="page">${E(b.nav)}</span></nav>
+  <p class="eyebrow"><span class="dot"></span>${E(b.eyebrow)}</p>
+  <h1 class="display display--sm">${E(b.h1)}</h1><p class="lead">${E(b.lead)}</p>
+</div></section>
+<section class="sec sec--navy"><div class="wrap"><h2 class="h2">${E(b.whyTitle)}</h2><div class="why">${b.why.map((w) => `<article><h3>${E(w.t)}</h3><p>${E(w.d)}</p></article>`).join('')}</div></div></section>
+<section class="sec sec--paper sec--form"><div class="wrap narrow">
+  <h2 class="h2">${E(b.stepsTitle)}</h2>
+  <ol class="wiz-steps">${b.steps.map((s, i) => `<li class="on"><b>${i + 1}</b><span>${E(s)}</span></li>`).join('')}</ol>
+  <form class="wiz" id="branchForm" name="subelik-basvurusu" method="post" action="#" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+    <input type="hidden" name="form-name" value="subelik-basvurusu"><input type="hidden" name="dil" value="${lang}">
+    <p class="hp" aria-hidden="true"><label>Bot <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+    <fieldset class="panel on"><legend class="h3">${E(b.formTitle)}</legend>
+      <div class="grid2">
+        <label class="f"><span>${E(b.f.ad)} *</span><input name="ad" autocomplete="name" required><em class="err" data-err="ad" hidden>${E(b.errReq)}</em></label>
+        <label class="f"><span>${E(b.f.tel)} *</span><input name="tel" type="tel" inputmode="tel" autocomplete="tel" required><em class="err" data-err="tel" hidden>${E(b.errPhone)}</em></label>
+        <label class="f"><span>${E(b.f.il)} *</span><input name="il" required><em class="err" data-err="il" hidden>${E(b.errReq)}</em></label>
+        <label class="f"><span>${E(b.f.mail)}</span><input name="mail" type="email" autocomplete="email"></label>
+        <label class="f"><span>${E(b.f.durum)}</span><select name="durum">${opts(b.f.durumO)}</select></label>
+        <label class="f"><span>${E(b.f.ofis)}</span><select name="ofis">${opts(b.f.ofisO)}</select></label>
+        <label class="f f--wide"><span>${E(b.f.not)}</span><textarea name="not" rows="3"></textarea></label>
+      </div>
+      <label class="kvkk"><input type="checkbox" name="kvkk" required><span>${E(b.kvkk)}</span></label><p class="err" data-err="kvkk" hidden>${E(b.errKvkk)}</p>
+      <p class="hint">${E(b.note)}</p>
+      <div class="send"><button class="btn btn--lg" type="submit">${icon('wa')}${E(b.btn)}</button></div>
+    </fieldset>
+    <script type="application/json" id="branch-data">${J(data)}</script>
+  </form>
+</div></section>
+</main>
+${footer(lang, base)}
+` + scripts(base, `\n<script type="module" src="${base}js/branch.js"></script>`);
+}
+
 // --- üret
 for (const lang of langs) {
   out(`${pagePath(lang, 'home')}index.html`, renderHome(lang));
   for (const p of ALL) out(`${pagePath(lang, p)}index.html`, renderProduct(lang, p));
   out(`${pagePath(lang, 'teklif')}index.html`, renderQuote(lang));
+  out(`${pagePath(lang, 'sube')}index.html`, renderBranch(lang));
 }
 // 404 (kök-mutlak yollar: her derinlikte çalışsın)
 {
@@ -381,7 +426,7 @@ for (const lang of langs) {
 }
 // sitemap
 const urls = [];
-for (const key of ['home', ...ALL, 'teklif']) for (const lang of langs) {
+for (const key of ['home', ...ALL, 'teklif', 'sube']) for (const lang of langs) {
   urls.push(`<url><loc>${abs(pagePath(lang, key))}</loc><lastmod>${cfg.lastmod}</lastmod><changefreq>${key === 'home' ? 'weekly' : 'monthly'}</changefreq><priority>${key === 'home' ? '1.0' : key === 'teklif' ? '0.9' : '0.8'}</priority>${langs.map((l) => `<xhtml:link rel="alternate" hreflang="${l}" href="${abs(pagePath(l, key))}"/>`).join('')}<xhtml:link rel="alternate" hreflang="x-default" href="${abs(pagePath('tr', key))}"/></url>`);
 }
 out('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls.join('\n')}\n</urlset>\n`);

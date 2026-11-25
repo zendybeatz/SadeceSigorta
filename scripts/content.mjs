@@ -372,10 +372,10 @@ export const content = {
 };
 
 // --- ek sigorta türlerini birleştir (scripts/extras.mjs)
-import { extra, extraKeys } from './extras.mjs';
+import { extra, extraKeys, branch } from './extras.mjs';
 for (const l of langs) {
   const c = content[l]; const x = extra[l];
   Object.assign(c.slugs, x.slugs); Object.assign(c.nav, x.nav); Object.assign(c.products, x.products);
-  c.quote.fields = { ...c.quote.fields, ...x.fields }; c.hero = x.hero; c.more = x.more;
+  c.quote.fields = { ...c.quote.fields, ...x.fields }; c.hero = x.hero; c.more = x.more; c.slugs.sube = branch[l].slug; c.nav.sube = branch[l].nav; c.branch = branch[l];
 }
 export { extraKeys };

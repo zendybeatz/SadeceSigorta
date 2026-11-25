@@ -46,7 +46,7 @@ if (qf) {
     const lines = [H.msg, '', `${H.mType}: ${Dq.names[fd.get('tur')]}`]; const pl = String(fd.get('plaka') || '').trim();
     if (pl) lines.push(`${H.mPlate}: ${pl.toUpperCase()}`); lines.push(`${H.mPhone}: ${tel}`, `${H.mPref}: ${fd.get('tercih')}`);
     const url = `https://wa.me/${Dq.wa}?text=${encodeURIComponent(lines.join('\n'))}`;
-    const w = window.open(url, '_blank', 'noopener'); if (!w) location.href = url;
+    const w = window.open(url, '_blank'); if (w) w.opener = null; else location.href = url;
     try { fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(fd).toString(), keepalive: true }).catch(() => {}); } catch (_) { /* sessiz */ }
     const n = $('.quick__n', qf); if (n) n.textContent = H.ok;
   });
